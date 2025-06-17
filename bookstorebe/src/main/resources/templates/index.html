@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'BOOK_SYSTEM // INTERFACE_UNIT'">BOOK_SYSTEM // INTERFACE_UNIT</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>BOOK_SYSTEM // V_2.1</h1>
+            <p>UNIT ONLINE // MEMORY ACCESS</p>
+            <div class="header-actions">
+                <a th:href="@{/logout}" class="btn-logout">LOGOUT_SESSION</a>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="form-section">
+                <h2>INPUT DATA</h2>
+                <div id="message" class="message-container">
+                    </div>
+
+                <form id="bookForm" class="book-form">
+                    <input type="hidden" id="bookIdToEdit" name="id">
+
+                    <div class="form-group">
+                        <label for="bookName">BOOK_NAME <span class="required">*</span></label>
+                        <input type="text" id="bookName" name="bookName" placeholder="TITLE_NAME..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="authorName">AUTHOR_NAME <span class="required">*</span></label>
+                        <input type="text" id="authorName" name="authorName" placeholder="AUTHOR_NAME..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">GENRE <span class="required">*</span></label>
+                        <input type="text" id="genre" name="genre" placeholder="GENRE..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="publishedYear">YEAR</label>
+                        <input type="number" id="publishedYear" name="publishedYear" min="1000" th:max="${#dates.year(#dates.createNow())}" placeholder="YYYY">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">QUANTITY</label>
+                        <input type="number" id="quantity" name="quantity" min="0" value="1" placeholder="UNITS">
+                    </div>
+                    <button type="submit" id="submitButton">ENTER</button>
+                </form>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>CALCULATING // STANDBY</p>
+                </div>
+            </section>
+
+            <section class="books-section">
+                <div class="books-section-header">
+                    <h2>MEMORY_REGISTER</h2>
+                    <button onclick="loadBooks()" class="btn-refresh">
+                        <span class="icon">🔄</span> RECALL
+                    </button>
+                </div>
+                <div id="booksList" class="books-list">
+                    <p class="empty-state-message">NO_DATA // INPUT_REQUIRED</p>
+                    </div>
+            </section>
+        </main>
+    </div>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+/* Define CSS custom properties for a Retro/Skeuomorphic theme */
+:root {
+    /* Base Colors - Warm, aged palette */
+    --bg-main: #3a322c; /* Dark, aged wood/leather background */
+    --bg-panel-light: #f5f0e1; /* Creamy off-white for "paper" sections */
+    --bg-panel-dark: #2a2520; /* Darker internal panel background */
+    --text-dark: #222222; /* Dark brown/charcoal for text on light backgrounds */
+    --text-light: #e0d9c9; /* Light cream for text on dark backgrounds */
+    --text-accent: #6f5f4e; /* Muted brown for secondary text */
+
+    /* Accent & Control Colors */
+    --accent-gold: #c7a44f; /* Muted gold for highlights */
+    --accent-green-led: #52e06a; /* Soft green for "power on" or success LEDs */
+    --accent-red-led: #e05252; /* Soft red for "error" or delete LEDs */
+    --button-face: #9e9e9e; /* Gray for button faces (like old plastic) */
+    --button-shadow: #666666; /* Darker gray for button shadows */
+    --button-highlight: #d0d0d0; /* Lighter gray for button highlights */
+
+    /* Effects & Dimensions */
+    --border-depth: 4px; /* For chunky, beveled borders */
+    --inset-depth: 2px; /* For recessed elements */
+    --border-radius-soft: 8px; /* Slightly rounded corners */
+    --shadow-subtle: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Realistic, soft shadow */
+    --bevel-shadow-dark: inset 0 0 5px rgba(0, 0, 0, 0.6); /* For inner bevels */
+    --bevel-shadow-light: inset 0 0 5px rgba(255, 255, 255, 0.15); /* For highlights */
+    --transition-speed: 0.1s ease-out; /* Quick click transitions */
+
+    /* Fonts */
+    --font-serif: 'Old Standard TT', 'Georgia', serif; /* Classic book font */
+    --font-mono: 'VT323', 'Press Start 2P', monospace; /* Old computer/pixel font */
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-serif); /* Default text in a classic serif */
+    background: var(--bg-main); /* Dark wood/leather background */
+    color: var(--text-light);
+    min-height: 100vh;
+    padding: 3rem; /* More generous padding */
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgo8cGF0aCBkPSJNMCAyMFQyMCAyMEQyMCAwVDIwIDIwSDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzMyMjkyNSIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdHRlcm4+CjwvZGVmcz4KPHJlY3Qgd2lkdG09IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSI+PC9yZWN0Pgo8L3N2Zz4='); /* Subtle dark grid */
+    background-repeat: repeat;
+}
+
+/* Main container - acts as a heavy frame or older monitor casing */
+.container {
+    max-width: min(1200px, 95vw);
+    width: 100%;
+    margin: 0 auto;
+    background: var(--bg-panel-dark); /* Dark interior of the frame */
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-subtle);
+    border: var(--border-depth) solid var(--accent-gold); /* Chunky gold frame */
+    overflow: hidden;
+    position: relative;
+
+    /* Create the illusion of depth for the frame */
+    padding: var(--border-depth);
+    box-shadow:
+        inset 0 0 15px rgba(0,0,0,0.8), /* Inner dark shadow */
+        0 10px 20px rgba(0,0,0,0.7); /* Outer main shadow */
+}
+
+/* Header styling - like an old monitor screen or etched plaque */
+.header {
+    background: #111; /* Deep black for screen */
+    color: var(--accent-green-led); /* Green for "screen" text */
+    padding: 2.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--accent-gold); /* Divider line */
+    font-family: var(--font-mono); /* Pixel/mono font for header */
+    text-shadow: 0 0 5px var(--accent-green-led), 0 0 10px rgba(82, 224, 106, 0.3); /* CRT glow */
+    position: relative;
+    overflow: hidden; /* For scanlines */
+    border-top: 2px solid #000; /* Dark top border for screen effect */
+
+    /* CRT scanline effect */
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+        background-size: 100% 2px, 3px 100%;
+        pointer-events: none;
+        z-index: 2;
+    }
+}
+
+.header h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin-bottom: 0.5rem;
+    font-weight: 400; /* Pixel fonts often don't need bold */
+    letter-spacing: 2px;
+}
+
+.header p {
+    font-size: clamp(0.85rem, 3vw, 1rem);
+    color: var(--text-secondary);
+    opacity: 0.9;
+}
+
+/* Main content layout */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem;
+    background: var(--bg-panel-dark); /* Dark background for overall content area */
+}
+
+/* Form and books section - look like actual books or dedicated panels */
+.form-section, .books-section {
+    background: var(--bg-panel-light); /* Creamy "paper" background */
+    border-radius: var(--border-radius-soft);
+    padding: 2rem;
+    box-shadow: 0 0 0 var(--inset-depth) var(--accent-gold), /* Inset gold border */
+                0 0 0 calc(var(--inset-depth) + 1px) var(--bg-panel-dark); /* Darker border for depth */
+    position: relative;
+
+    /* Subtle texture for paper */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMiIgaGVpZ2h0PSIyIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmN2Y1ZWMiLz4KPGNpcmNsZSBjeD0iMC41IiBjeT0iMC41IiByPSIwLjIuNSIgZmlsbD0iI2U4ZDNjOSIvPgo8L3N2Zz4='); /* Subtle paper texture */
+    background-size: 8px 8px;
+    background-repeat: repeat;
+    color: var(--text-dark); /* Dark text on light background */
+}
+
+.form-section h2, .books-section h2 {
+    font-family: var(--font-serif);
+    color: var(--text-dark);
+    margin-bottom: 1.8rem;
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
+    font-weight: 700;
+    border-bottom: 1px dashed var(--accent-gold); /* Dashed golden separator */
+    padding-bottom: 0.6rem;
+    text-align: center;
+    position: relative; /* For embossed effect */
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.7), -1px -1px 0 rgba(0,0,0,0.2); /* Embossed effect */
+}
+
+
+/* Form group styling - recessed inputs */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.5); /* Subtle embossed text */
+}
+
+.required {
+    color: var(--accent-red-led);
+    margin-left: 5px;
+}
+
+/* Input and select styling - recessed console slots */
+input, select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--button-shadow); /* Dark border */
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #e8e2d4; /* Slightly darker than paper for contrast */
+    color: var(--text-dark);
+    transition: all 0.1s linear;
+    outline: none;
+    box-shadow:
+        inset 1px 1px 3px rgba(0,0,0,0.6), /* Inner shadow for recess */
+        inset -1px -1px 2px rgba(255,255,255,0.3); /* Inner highlight */
+    font-family: var(--font-mono); /* Old computer font for input */
+}
+
+input::placeholder {
+    color: var(--text-accent);
+    opacity: 0.8;
+    font-family: var(--font-mono);
+}
+
+input:focus, select:focus {
+    border-color: var(--accent-gold); /* Gold border on focus */
+    box-shadow:
+        inset 1px 1px 3px rgba(0,0,0,0.8),
+        inset -1px -1px 2px rgba(255,255,255,0.4),
+        0 0 0 2px var(--accent-gold); /* Outer glow for focus */
+}
+
+/* Button styling - chunky, pushable buttons */
+button {
+    background-color: var(--button-face);
+    color: var(--text-dark);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 700;
+    transition: var(--transition-speed);
+    width: 100%;
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--font-mono); /* Retro font for buttons */
+
+    /* 3D button effect */
+    border-top: 2px solid var(--button-highlight);
+    border-left: 2px solid var(--button-highlight);
+    border-right: 2px solid var(--button-shadow);
+    border-bottom: 2px solid var(--button-shadow);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5); /* Outer shadow for depth */
+}
+
+button:hover {
+    background-color: var(--button-face); /* Keep same face color */
+    transform: translateY(-2px); /* Lift slightly */
+    box-shadow: 0 6px 10px rgba(0,0,0,0.6); /* Deeper shadow on hover */
+    /* Bevels stay the same, but the outer shadow changes */
+}
+
+button:active {
+    transform: translateY(0); /* Press down */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.6); /* Inner shadow when pressed */
+    border-top: 2px solid var(--button-shadow);
+    border-left: 2px solid var(--button-shadow);
+    border-right: 2px solid var(--button-highlight);
+    border-bottom: 2px solid var(--button-highlight);
+}
+
+/* Books list styling - looks like a physical card catalog or ledger */
+.books-list {
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: var(--accent-gold) var(--bg-panel-light); /* Gold scrollbar */
+    padding-right: 8px; /* Space for scrollbar */
+}
+
+/* Custom scrollbar for Webkit browsers */
+.books-list::-webkit-scrollbar {
+    width: 10px;
+}
+.books-list::-webkit-scrollbar-track {
+    background: var(--bg-panel-light);
+    border-radius: 0;
+    border: 1px solid var(--text-accent);
+}
+.books-list::-webkit-scrollbar-thumb {
+    background-color: var(--accent-gold);
+    border-radius: 0;
+    border: 2px solid var(--bg-panel-light);
+}
+.books-list::-webkit-scrollbar-thumb:hover {
+    background-color: darken(var(--accent-gold), 10%);
+}
+
+
+/* Book item styling - index cards or book spines */
+.book-item {
+    background: #fdfae9; /* Slightly lighter "paper" for items */
+    border: 1px solid var(--text-accent); /* Thin brown border */
+    margin-bottom: 1rem;
+    padding: 1.2rem;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Subtle item shadow */
+    font-family: var(--font-serif);
+}
+
+.book-item:hover {
+    transform: translateY(-3px) rotate(-1deg); /* Slight lift and tilt for "card" effect */
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Book details styling */
+.book-title {
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.book-author {
+    color: var(--text-accent);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+}
+
+.book-details {
+    color: var(--text-dark);
+    font-size: 0.85rem;
+}
+
+/* Book actions styling - like small physical buttons or levers */
+.book-actions {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    display: flex;
+    gap: 0.6rem;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    width: auto;
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: var(--font-mono);
+    /* Inherit 3D button styling */
+    border-top: 1px solid var(--button-highlight);
+    border-left: 1px solid var(--button-highlight);
+    border-right: 1px solid var(--button-shadow);
+    border-bottom: 1px solid var(--button-shadow);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.4);
+}
+
+.btn-small:active {
+    transform: translateY(0);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
+    border-top: 1px solid var(--button-shadow);
+    border-left: 1px solid var(--button-shadow);
+    border-right: 1px solid var(--button-highlight);
+    border-bottom: 1px solid var(--button-highlight);
+}
+
+
+.btn-edit {
+    background: #d0d0d0; /* Lighter gray for edit */
+    color: var(--text-dark);
+}
+
+.btn-edit:hover {
+    background: #c0c0c0;
+}
+
+.btn-delete {
+    background: var(--accent-red-led); /* Red for delete */
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5); /* Glow for delete button */
+}
+
+.btn-delete:hover {
+    background: darken(var(--accent-red-led), 10%);
+}
+
+/* Refresh button specific styling - like a chunky switch */
+.btn-refresh {
+    background: var(--button-face);
+    border: none;
+    color: var(--text-dark);
+    padding: 0.8rem 1.5rem;
+    width: auto;
+    font-size: 0.95rem;
+    margin-top: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* 3D button effect */
+    border-top: 2px solid var(--button-highlight);
+    border-left: 2px solid var(--button-highlight);
+    border-right: 2px solid var(--button-shadow);
+    border-bottom: 2px solid var(--button-shadow);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5); /* Outer shadow for depth */
+}
+
+.btn-refresh:hover {
+    background: var(--button-face);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.6);
+}
+
+.btn-refresh:active {
+    transform: translateY(0);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+    border-top: 2px solid var(--button-shadow);
+    border-left: 2px solid var(--button-shadow);
+    border-right: 2px solid var(--button-highlight);
+    border-bottom: 2px solid var(--button-highlight);
+}
+
+
+.btn-refresh .icon {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 1.1em;
+    vertical-align: middle;
+}
+
+/* Success and error messages - like old system alerts */
+.message-container {
+    margin-bottom: 1.5rem;
+    text-align: center; /* Center messages */
+}
+
+.success-message, .error-message {
+    padding: 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    border: 2px solid; /* Thicker border */
+    font-family: var(--font-mono); /* Mono font for messages */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.4); /* Subtle glow */
+}
+
+.success-message {
+    background: #254425; /* Dark green background */
+    color: var(--accent-green-led);
+    border-color: var(--accent-green-led);
+}
+
+.error-message {
+    background: #442525; /* Dark red background */
+    color: var(--accent-red-led);
+    border-color: var(--accent-red-led);
+}
+
+/* Empty state message */
+.empty-state-message {
+    text-align: center;
+    color: var(--text-accent);
+    padding: 2rem;
+    border: 1px dashed var(--text-accent); /* Dashed border */
+    border-radius: var(--panel-border-radius);
+    margin-top: 1rem;
+    font-style: italic;
+    font-family: var(--font-serif);
+}
+
+/* Loading spinner - simple, retro look */
+.loading {
+    display: none; /* Hide by default, show with JS */
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    font-family: var(--font-mono);
+}
+
+.spinner {
+    border: 4px solid rgba(0,0,0,0.2);
+    border-top: 4px solid var(--accent-gold); /* Gold spinner */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+    .content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    body {
+        padding: 1.5rem;
+    }
+
+    .header {
+        padding: 2rem 1.5rem;
+    }
+
+    .form-section, .books-section {
+        padding: 1.8rem;
+    }
+
+    .books-section-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .books-section-header h2 {
+        margin-bottom: 0;
+    }
+
+    .btn-refresh {
+        margin-top: 0;
+        width: 100%;
+    }
+
+    .book-actions {
+        position: static;
+        margin-top: 1rem;
+        justify-content: flex-start;
+    }
+}
